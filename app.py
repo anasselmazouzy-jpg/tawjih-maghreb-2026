@@ -1,9 +1,9 @@
 import streamlit as st
 
 # 1. إعدادات الصفحة
-st.set_page_config(page_title="Tawjih Pro AI 2026", page_icon="🎓", layout="centered")
+st.set_page_config(page_title="منصة توجيه برو 2026", page_icon="🎓", layout="centered")
 
-# 2. ستايل CSS لضبط الصور والنصوص (منع التداخل)
+# 2. تنسيق CSS لضمان مظهر احترافي ومنع تداخل النصوص
 st.markdown("""
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap');
@@ -11,89 +11,93 @@ st.markdown("""
         font-family: 'Cairo', sans-serif;
         direction: rtl;
         text-align: right;
-        background-color: #0f172a;
+        background-color: #0e1117;
         color: white;
     }
     .main-title {
-        font-size: 2.5rem;
+        font-size: 2.2rem;
         font-weight: 900;
-        color: #60a5fa;
+        color: #4facfe;
         text-align: center;
-        margin-bottom: 10px;
-    }
-    .image-container {
-        border-radius: 20px;
-        overflow: hidden;
         margin-bottom: 20px;
-        border: 2px solid #3b82f6;
     }
-    .feature-box {
+    .feature-card {
         background: rgba(255, 255, 255, 0.05);
-        padding: 15px;
+        padding: 20px;
         border-radius: 15px;
-        margin-bottom: 20px;
-        border-right: 5px solid #3b82f6;
+        border-right: 6px solid #4facfe;
+        margin-bottom: 25px;
+    }
+    img {
+        border-radius: 12px;
+        margin-bottom: 10px;
     }
     </style>
     """, unsafe_allow_html=True)
 
-# 3. الواجهة الأمامية (الصور التي تظهر فور الدخول)
-st.markdown("<div class='main-title'>منصة توجيه برو 2026</div>", unsafe_allow_html=True)
+# 3. الواجهة الأمامية (الصور تظهر فوراً)
+st.markdown("<div class='main-title'>🚀 منصة توجيه برو 2026</div>", unsafe_allow_html=True)
 
-# صورة رئيسية جذابة في الأعلى
-st.image("https://images.unsplash.com/photo-1523050853064-db984a9617ae?w=1000&q=80", use_container_width=True)
+# الصورة الرئيسية الكبيرة في الواجهة
+st.image("https://images.unsplash.com/photo-1523050853064-db984a9617ae?q=80&w=1000", caption="مستقبلك يبدأ من هنا", use_container_width=True)
 
 st.markdown("""
-<div class='feature-box'>
-    <h3>🌟 لماذا نحن؟</h3>
-    <p>نستخدم أحدث خوارزميات الذكاء الاصطناعي لتحليل نقاطك وتوجيهك نحو الكلية المناسبة لمستقبلك.</p>
+<div class='feature-card'>
+    <h3>✨ لماذا تختار منصتنا؟</h3>
+    <p>نحن نوفر لك تحليلاً دقيقاً بناءً على معدلات القبول التاريخية في المغرب، لنرشدك نحو الكلية التي تناسب طموحاتك.</p>
 </div>
 """, unsafe_allow_html=True)
 
-# صور استعراضية للمجالات (تظهر في الواجهة)
-st.write("### 📚 استكشف آفاقك الدراسية:")
-col_img1, col_img2 = st.columns(2)
-with col_img1:
-    st.image("https://images.unsplash.com/photo-1576091160550-2173dad99901?w=400&q=60", caption="الطب والصيدلة")
-with col_img2:
-    st.image("https://images.unsplash.com/photo-1581092580497-e0d23cbdf1dc?w=400&q=60", caption="الهندسة والابتكار")
+# صور استعراضية في الواجهة الأمامية (قبل التحليل)
+st.write("### 🏢 استكشف المؤسسات الكبرى:")
+col_front1, col_front2 = st.columns(2)
+with col_front1:
+    st.image("https://images.unsplash.com/photo-1576091160550-2173dad99901?q=80&w=400", caption="كليات الطب والصيدلة")
+with col_front2:
+    st.image("https://images.unsplash.com/photo-1581092580497-e0d23cbdf1dc?q=80&w=400", caption="مدارس الهندسة والتقنيات")
 
 st.markdown("---")
 
-# 4. منطقة إدخال البيانات
-st.subheader("📝 ابدأ التحليل الآن")
-name = st.text_input("اسمك الكامل")
+# 4. إدخال بيانات الطالب
+st.subheader("📝 ابدأ رحلتك التوجيهية الآن")
+name = st.text_input("الاسم الكامل")
 phone = st.text_input("رقم الواتساب")
 
 col1, col2 = st.columns(2)
 with col1:
     math = st.number_input("الرياضيات", 0.0, 20.0, 14.0)
-    lang = st.number_input("اللغات", 0.0, 20.0, 14.0)
+    lang = st.number_input("اللغات", 0.0, 20.0, 10.0)
 with col2:
     physic = st.number_input("الفيزياء", 0.0, 20.0, 14.0)
-    philo = st.number_input("الفلسفة", 0.0, 20.0, 14.0)
+    philo = st.number_input("الفلسفة", 0.0, 20.0, 10.0)
 
-# 5. زر النتائج
-if st.button("🚀 عرض تقرير القبول التفصيلي"):
+# 5. تحليل النتائج وعرضها بالصور
+if st.button("🚀 عرض تقرير القبول"):
     if not name or not phone:
-        st.error("⚠️ يرجى ملء البيانات أولاً")
+        st.error("⚠️ المرجو إدخال الاسم ورقم الهاتف أولاً")
     else:
         st.balloons()
         avg = (math + physic + lang + philo) / 4
         
-        # مصفوفة المدارس مع الصور (تظهر عند النتيجة أيضاً)
+        st.markdown(f"## 🎯 التقرير الخاص بالطالب: {name}")
+        
+        # قائمة المدارس المحددة
         schools = [
-            {"n": "كلية الطب", "th": 16.2, "img": "https://images.pexels.com/photos/263402/pexels-photo-263402.jpeg?auto=compress&cs=tinysrgb&w=400"},
-            {"n": "مدرسة الهندسة", "th": 14.5, "img": "https://images.pexels.com/photos/3184418/pexels-photo-3184418.jpeg?auto=compress&cs=tinysrgb&w=400"}
+            {"n": "كليات الطب والصيدلة", "th": 16.0, "img": "https://images.unsplash.com/photo-1532187875605-2fe3d39148b3?q=80&w=500"},
+            {"n": "المدارس الوطنية للعلوم التطبيقية (ENSA)", "th": 14.2, "img": "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&w=500"},
+            {"n": "المدارس الوطنية للتجارة والتسيير (ENCG)", "th": 13.5, "img": "https://images.unsplash.com/photo-1454165833767-027ffea9e77b?q=80&w=500"}
         ]
         
-        st.markdown(f"## 🎯 النتيجة لـ {name}")
         for s in schools:
             diff = avg - s['th']
-            prob = min(99, 85 + (diff * 5)) if diff >= 0 else max(10, 50 + (diff * 15))
+            # معادلة ذكية لحساب النسبة المئوية للقبول
+            prob = min(99, 80 + (diff * 8)) if diff >= 0 else max(10, 50 + (diff * 15))
+            color = "#00ff88" if prob >= 70 else "#ffcc00"
             
-            st.markdown(f"### 📍 {s['n']}")
-            st.image(s['img'], use_container_width=True)
-            st.info(f"نسبة القبول المتوقعة بناءً على التحليل: {prob:.1f}%")
+            with st.container():
+                st.markdown(f"### 📍 {s['n']}")
+                st.image(s['img'], use_container_width=True)
+                st.markdown(f"<p style='font-size:1.2rem;'>احتمالية القبول بناءً على نقاطك: <b style='color:{color};'>{prob:.1f}%</b></p>", unsafe_allow_html=True)
+                st.write("---")
 
-st.markdown("<p style='text-align:center; margin-top:30px; opacity:0.6;'>جميع الحقوق محفوظة - أنس المعزوزي 2026</p>", unsafe_allow_html=True)
+st.markdown("<p style='text-align:center; opacity:0.6;'>تم التطوير بواسطة أنس المعزوزي © 2026</p>", unsafe_allow_html=True)
