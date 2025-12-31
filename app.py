@@ -1,103 +1,172 @@
-import streamlit as st
-
-# 1. إعدادات الصفحة
-st.set_page_config(page_title="منصة توجيه برو 2026", page_icon="🎓", layout="centered")
-
-# 2. تنسيق CSS لضمان مظهر احترافي ومنع تداخل النصوص
-st.markdown("""
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>توجيه برو | مستقبلك يبدأ من هنا</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-    @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap');
-    html, body, [class*="css"] {
-        font-family: 'Cairo', sans-serif;
-        direction: rtl;
-        text-align: right;
-        background-color: #0e1117;
-        color: white;
-    }
-    .main-title {
-        font-size: 2.2rem;
-        font-weight: 900;
-        color: #4facfe;
-        text-align: center;
-        margin-bottom: 20px;
-    }
-    .feature-card {
-        background: rgba(255, 255, 255, 0.05);
-        padding: 20px;
-        border-radius: 15px;
-        border-right: 6px solid #4facfe;
-        margin-bottom: 25px;
-    }
-    img {
-        border-radius: 12px;
-        margin-bottom: 10px;
-    }
+        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap');
+        
+        body {
+            font-family: 'Cairo', sans-serif;
+            background-color: #f0f2f5;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .card {
+            background: white;
+            width: 90%;
+            max-width: 450px;
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        .logo-img {
+            width: 120px;
+            height: 120px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 4px solid #007bff;
+            margin-bottom: 1rem;
+        }
+
+        h2 { color: #1a1a1a; margin-bottom: 0.5rem; }
+        p { color: #666; font-size: 0.9rem; margin-bottom: 1.5rem; }
+
+        .input-group {
+            position: relative;
+            margin-bottom: 1rem;
+        }
+
+        .input-group i {
+            position: absolute;
+            right: 15px;
+            top: 15px;
+            color: #007bff;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px 45px 12px 15px;
+            border: 2px solid #e1e1e1;
+            border-radius: 10px;
+            font-size: 1rem;
+            box-sizing: border-box;
+            transition: 0.3s;
+        }
+
+        input:focus {
+            border-color: #007bff;
+            outline: none;
+        }
+
+        .btn {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 15px;
+            width: 100%;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .btn:hover { background: #0056b3; }
+
+        .error-msg {
+            color: #dc3545;
+            font-size: 0.85rem;
+            margin-top: -10px;
+            margin-bottom: 10px;
+            display: none;
+            text-align: right;
+        }
+
+        /* تنسيق الصور الاحترافي */
+        .image-container {
+            margin-top: 20px;
+            display: flex;
+            gap: 10px;
+        }
+
+        .image-container img {
+            width: 50%;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
     </style>
-    """, unsafe_allow_html=True)
+</head>
+<body>
 
-# 3. الواجهة الأمامية (الصور تظهر فوراً)
-st.markdown("<div class='main-title'>🚀 منصة توجيه برو 2026</div>", unsafe_allow_html=True)
+<div class="card">
+    <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=300" alt="Tawjih Pro" class="logo-img">
+    
+    <h2>توجيه برو</h2>
+    <p>منصة التوجيه التربوي الأولى للتلاميذ</p>
 
-# الصورة الرئيسية الكبيرة في الواجهة
-st.image("https://images.unsplash.com/photo-1523050853064-db984a9617ae?q=80&w=1000", caption="مستقبلك يبدأ من هنا", use_container_width=True)
+    <div class="input-group">
+        <i class="fas fa-envelope"></i>
+        <input type="email" id="email" placeholder="أدخل البريد الإلكتروني (Gmail)">
+    </div>
+    <div id="emailError" class="error-msg">⚠️ يرجى إدخال بريد إلكتروني صحيح (Gmail) للمتابعة.</div>
 
-st.markdown("""
-<div class='feature-card'>
-    <h3>✨ لماذا تختار منصتنا؟</h3>
-    <p>نحن نوفر لك تحليلاً دقيقاً بناءً على معدلات القبول التاريخية في المغرب، لنرشدك نحو الكلية التي تناسب طموحاتك.</p>
+    <div id="phoneBox" style="display: none;">
+        <div class="input-group">
+            <i class="fas fa-phone"></i>
+            <input type="tel" id="phone" placeholder="أدخل رقم الهاتف">
+        </div>
+        <div id="phoneError" class="error-msg">⚠️ يرجى إدخال رقم الهاتف قبل المرور.</div>
+    </div>
+
+    <button class="btn" onclick="validateAndProceed()">متابعة التسجيل</button>
+
+    <div class="image-container">
+        <img src="https://images.unsplash.com/photo-1434030216411-0b793f4b4173?auto=format&fit=crop&w=200" alt="دراسة">
+        <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=200" alt="توجيه">
+    </div>
 </div>
-""", unsafe_allow_html=True)
 
-# صور استعراضية في الواجهة الأمامية (قبل التحليل)
-st.write("### 🏢 استكشف المؤسسات الكبرى:")
-col_front1, col_front2 = st.columns(2)
-with col_front1:
-    st.image("https://images.unsplash.com/photo-1576091160550-2173dad99901?q=80&w=400", caption="كليات الطب والصيدلة")
-with col_front2:
-    st.image("https://images.unsplash.com/photo-1581092580497-e0d23cbdf1dc?q=80&w=400", caption="مدارس الهندسة والتقنيات")
-
-st.markdown("---")
-
-# 4. إدخال بيانات الطالب
-st.subheader("📝 ابدأ رحلتك التوجيهية الآن")
-name = st.text_input("الاسم الكامل")
-phone = st.text_input("رقم الواتساب")
-
-col1, col2 = st.columns(2)
-with col1:
-    math = st.number_input("الرياضيات", 0.0, 20.0, 14.0)
-    lang = st.number_input("اللغات", 0.0, 20.0, 10.0)
-with col2:
-    physic = st.number_input("الفيزياء", 0.0, 20.0, 14.0)
-    philo = st.number_input("الفلسفة", 0.0, 20.0, 10.0)
-
-# 5. تحليل النتائج وعرضها بالصور
-if st.button("🚀 عرض تقرير القبول"):
-    if not name or not phone:
-        st.error("⚠️ المرجو إدخال الاسم ورقم الهاتف أولاً")
-    else:
-        st.balloons()
-        avg = (math + physic + lang + philo) / 4
+<script>
+    function validateAndProceed() {
+        const email = document.getElementById('email').value;
+        const phone = document.getElementById('phone').value;
+        const phoneBox = document.getElementById('phoneBox');
         
-        st.markdown(f"## 🎯 التقرير الخاص بالطالب: {name}")
-        
-        # قائمة المدارس المحددة
-        schools = [
-            {"n": "كليات الطب والصيدلة", "th": 16.0, "img": "https://images.unsplash.com/photo-1532187875605-2fe3d39148b3?q=80&w=500"},
-            {"n": "المدارس الوطنية للعلوم التطبيقية (ENSA)", "th": 14.2, "img": "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&w=500"},
-            {"n": "المدارس الوطنية للتجارة والتسيير (ENCG)", "th": 13.5, "img": "https://images.unsplash.com/photo-1454165833767-027ffea9e77b?q=80&w=500"}
-        ]
-        
-        for s in schools:
-            diff = avg - s['th']
-            # معادلة ذكية لحساب النسبة المئوية للقبول
-            prob = min(99, 80 + (diff * 8)) if diff >= 0 else max(10, 50 + (diff * 15))
-            color = "#00ff88" if prob >= 70 else "#ffcc00"
-            
-            with st.container():
-                st.markdown(f"### 📍 {s['n']}")
-                st.image(s['img'], use_container_width=True)
-                st.markdown(f"<p style='font-size:1.2rem;'>احتمالية القبول بناءً على نقاطك: <b style='color:{color};'>{prob:.1f}%</b></p>", unsafe_allow_html=True)
-                st.write("---")
+        // التحقق من الإيميل (يجب أن يحتوي على @ و .)
+        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-st.markdown("<p style='text-align:center; opacity:0.6;'>تم التطوير بواسطة أنس المعزوزي © 2026</p>", unsafe_allow_html=True)
+        if (!emailPattern.test(email)) {
+            document.getElementById('emailError').style.display = 'block';
+            return;
+        } else {
+            document.getElementById('emailError').style.display = 'none';
+            // إظهار خانة الهاتف بعد التأكد من الإيميل
+            phoneBox.style.display = 'block';
+        }
+
+        // إذا كانت خانة الهاتف ظاهرة، نتحقق منها
+        if (phoneBox.style.display === 'block') {
+            if (phone.length < 10) {
+                document.getElementById('phoneError').style.display = 'block';
+                return;
+            } else {
+                document.getElementById('phoneError').style.display = 'none';
+                alert("تم التحقق بنجاح! جاري توجيهك إلى المنصة...");
+                // هنا نضع رابط التوجيه الفعلي
+                window.location.href = "https://your-success-page.com"; 
+            }
+        }
+    }
+</script>
+
+</body>
+</html>
